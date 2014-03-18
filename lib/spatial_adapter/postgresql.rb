@@ -167,7 +167,7 @@ module ActiveRecord::ConnectionAdapters
            AND d.indisprimary = 'f'
            AND t.oid = d.indrelid
            AND t.relname = '#{table_name}'
-           AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname IN (#{schemas}) )
+           AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
            AND i.relam = am.oid
            AND a.attrelid = t.oid
         ORDER BY i.relname
